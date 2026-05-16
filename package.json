@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "postbuild": "node -e \"const fs = require('fs'); if (fs.existsSync('dist')) { if (fs.existsSync('.output')) fs.rmSync('.output', { recursive: true }); fs.mkdirSync('.output', { recursive: true }); fs.renameSync('dist/client', '.output/public'); fs.renameSync('dist/server', '.output/server'); }\"",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
