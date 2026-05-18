@@ -1,4 +1,5 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { nitro } from "nitro/vite";
 
 const stripTsTypesPlugin = {
   name: 'strip-ts-types',
@@ -14,14 +15,15 @@ const stripTsTypesPlugin = {
 };
 
 export default defineConfig({
-  plugins: [stripTsTypesPlugin],
+  plugins: [
+    stripTsTypesPlugin,
+    nitro({ preset: "vercel" })
+  ],
+  cloudflare: false,
   tanstackStart: {
     router: {
       disableTypes: true,
       generatedRouteTree: "routeTree.gen.js",
-    },
-    server: {
-      preset: "vercel",
-    },
+    }
   },
 });
