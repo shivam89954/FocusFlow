@@ -8,62 +8,62 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as AppRouteImport } from "./routes/app";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as AppIndexRouteImport } from "./routes/app.index";
-import { Route as AppTodayRouteImport } from "./routes/app.today";
-import { Route as AppTasksRouteImport } from "./routes/app.tasks";
-import { Route as AppStatsRouteImport } from "./routes/app.stats";
-import { Route as AppSettingsRouteImport } from "./routes/app.settings";
-import { Route as AppHabitsRouteImport } from "./routes/app.habits";
-import { Route as AppCalendarRouteImport } from "./routes/app.calendar";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppTodayRouteImport } from './routes/app.today'
+import { Route as AppTasksRouteImport } from './routes/app.tasks'
+import { Route as AppStatsRouteImport } from './routes/app.stats'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppHabitsRouteImport } from './routes/app.habits'
+import { Route as AppCalendarRouteImport } from './routes/app.calendar'
 
 const AppRoute = AppRouteImport.update({
-  id: "/app",
-  path: "/app",
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
-});
+})
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-});
+})
 const AppIndexRoute = AppIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => AppRoute,
-});
+})
 const AppTodayRoute = AppTodayRouteImport.update({
-  id: "/today",
-  path: "/today",
+  id: '/today',
+  path: '/today',
   getParentRoute: () => AppRoute,
-});
+})
 const AppTasksRoute = AppTasksRouteImport.update({
-  id: "/tasks",
-  path: "/tasks",
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => AppRoute,
-});
+})
 const AppStatsRoute = AppStatsRouteImport.update({
-  id: "/stats",
-  path: "/stats",
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => AppRoute,
-});
+})
 const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: "/settings",
-  path: "/settings",
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRoute,
-});
+})
 const AppHabitsRoute = AppHabitsRouteImport.update({
-  id: "/habits",
-  path: "/habits",
+  id: '/habits',
+  path: '/habits',
   getParentRoute: () => AppRoute,
-});
+})
 const AppCalendarRoute = AppCalendarRouteImport.update({
-  id: "/calendar",
-  path: "/calendar",
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => AppRoute,
-});
+})
 
 const AppRouteChildren = {
   AppCalendarRoute: AppCalendarRoute,
@@ -73,12 +73,22 @@ const AppRouteChildren = {
   AppTasksRoute: AppTasksRoute,
   AppTodayRoute: AppTodayRoute,
   AppIndexRoute: AppIndexRoute,
-};
+}
 
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
-};
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes();
+}
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)
+
+import type { getRouter } from './router.jsx'
+import type { startInstance } from './start.js'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
